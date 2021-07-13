@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">LUMA</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >6 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="tv_signup">Sign Up</string>
+    <string name="et_names">Name</string>
+    <string name="et_lastname">Last Name</string>
+    <string name="et_mail">Mail</string>
+    <string name="accept_ptc">I agree to policy, terms and conditions</string>
+    <string name="already_account">Have an account already?</string>
+    <string name="tv_signin">Sign In</string>
+</resources>
