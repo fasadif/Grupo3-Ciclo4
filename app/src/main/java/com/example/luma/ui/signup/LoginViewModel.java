@@ -29,7 +29,7 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
-    public void login(String mail, String password) {
+    public void signup(String name, String lastname, String mail, String password) {
         // can be launched in a separate asynchronous job
         Result<LoggedInUser> result = loginRepository.login(mail, password);
 
@@ -41,29 +41,46 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    public void loginDataChanged(String mail, String password) {
-        if (!isUserNameValid(mail)) {
-            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
+    public void loginDataChanged(String name, String lastname, String mail, String password) {
+        if (!isNameValid(name)) {
+            loginFormState.setValue(new LoginFormState(R.string.invalid_name, null, null, null));
+        } else if (!isNameValid(lastname)) {
+            loginFormState.setValue(new LoginFormState(null, R.string.invalid_name, null, null));
+        } else if (!isMailValid(mail)) {
+            loginFormState.setValue(new LoginFormState(null, null, R.string.invalid_mail, null));
         } else if (!isPasswordValid(password)) {
-            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
+            loginFormState.setValue(new LoginFormState(null, null, null, R.string.invalid_password));
         } else {
             loginFormState.setValue(new LoginFormState(true));
         }
     }
 
-    // A placeholder username validation check
-    private boolean isUserNameValid(String username) {
-        if (username == null) {
+    // A name and lastname validation check
+    private boolean isNameValid(String s) {
+        if (s == null) {
             return false;
         }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+        if (s.matches("[A-Za-z. _-]+")) {
+            return true;
         } else {
-            return !username.trim().isEmpty();
+            return false;
+            //return (!username.trim().isEmpty() || !lastname.trim().isEmpty());
         }
     }
 
-    // A placeholder password validation check
+    // A mail structure validation check
+    private boolean isMailValid(String mail) {
+        if (mail == null) {
+            return false;
+        }
+        if (mail.contains("@")) {
+            return Patterns.EMAIL_ADDRESS.matcher(mail).matches();
+        } else {
+            return false;
+        }
+    }
+
+    // A password validation check
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 6;
     }

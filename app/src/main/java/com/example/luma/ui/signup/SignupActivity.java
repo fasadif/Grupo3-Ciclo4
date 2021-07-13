@@ -15,9 +15,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -34,6 +37,11 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//// This 2 lines remove the Title Bar from the app
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getSupportActionBar().hide(); // This line removes the Action Bar from each activity, instead is better to remove it from the themes.xml file
 
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -55,7 +63,24 @@ public class SignupActivity extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
+            // Valida si el checkbox esta seleccionado o no y deshabilita el boton de Sign Up
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        signupButton.setEnabled(isChecked);
+                    }
+                });
                 signupButton.setEnabled(loginFormState.isDataValid());
+
+            // Genera los mensajes de error en cada uno de los campos del registro
+                if (loginFormState.getUsernameError() != null) {
+                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
+                }
+                if (loginFormState.getLastNameError() != null) {
+                    lastnameEditText.setError(getString(loginFormState.getLastNameError()));
+                }
+                if (loginFormState.getMailError() != null) {
+                    mailEditText.setError(getString(loginFormState.getMailError()));
+                }
                 if (loginFormState.getPasswordError() != null) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
                 }
@@ -77,7 +102,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy signup activity once successful
+            //Complete and destroy signup activity once successful
                 finish();
             }
         });
@@ -96,6 +121,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
+                        lastnameEditText.getText().toString(),
+                        mailEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
         };
@@ -108,7 +135,9 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(mailEditText.getText().toString(),
+                    loginViewModel.signup(usernameEditText.getText().toString(),
+                            lastnameEditText.getText().toString(),
+                            mailEditText.getText().toString(),
                             passwordEditText.getText().toString());
                 }
                 return false;
@@ -119,7 +148,9 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(mailEditText.getText().toString(),
+                loginViewModel.signup(usernameEditText.getText().toString(),
+                        lastnameEditText.getText().toString(),
+                        mailEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
         });
