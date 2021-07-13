@@ -1,9 +1,9 @@
-package com.example.luma.ui.login;
+package com.example.luma.ui.signup;
 
 import androidx.annotation.Nullable;
 
 /**
- * Data validation state of the login form.
+ * Data validation state of the signup form.
  */
 class LoginFormState {
     @Nullable

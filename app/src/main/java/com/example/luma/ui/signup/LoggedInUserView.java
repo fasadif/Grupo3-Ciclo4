@@ -1,6 +1,4 @@
-package com.example.luma.ui.login;
-
-import androidx.annotation.Nullable;
+package com.example.luma.ui.signup;
 
 /**
  * Class exposing authenticated user details to the UI.

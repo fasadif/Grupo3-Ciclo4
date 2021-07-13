@@ -1,4 +1,4 @@
-package com.example.luma.ui.login;
+package com.example.luma.ui.signup;
 
 import android.app.Activity;
 
@@ -25,8 +25,6 @@ import android.widget.Toast;
 
 import com.example.luma.R;
 import com.example.luma.databinding.ActivitySignupBinding;
-import com.example.luma.ui.login.LoginViewModel;
-import com.example.luma.ui.login.LoginViewModelFactory;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -79,7 +77,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
+                //Complete and destroy signup activity once successful
                 finish();
             }
         });
