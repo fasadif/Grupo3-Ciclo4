@@ -1,22 +1,11 @@
 package com.example.luma.ui.signup;
 
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,6 +15,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.luma.R;
 import com.example.luma.databinding.ActivitySignupBinding;
 
@@ -33,6 +28,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivitySignupBinding binding;
+    private boolean validForm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +51,7 @@ public class SignupActivity extends AppCompatActivity {
         final EditText passwordEditText = binding.password;
         final CheckBox checkBox = binding.cbPtc;
         final Button signupButton = binding.btSignup;
+        signupButton.setEnabled(false);
         final ProgressBar loadingProgressBar = binding.loading;
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -63,13 +60,7 @@ public class SignupActivity extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
-            // Valida si el checkbox esta seleccionado o no y deshabilita el boton de Sign Up
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        signupButton.setEnabled(isChecked);
-                    }
-                });
-                signupButton.setEnabled(loginFormState.isDataValid());
+                validForm = loginFormState.isDataValid();
 
             // Genera los mensajes de error en cada uno de los campos del registro
                 if (loginFormState.getUsernameError() != null) {
@@ -141,6 +132,16 @@ public class SignupActivity extends AppCompatActivity {
                             passwordEditText.getText().toString());
                 }
                 return false;
+            }
+        });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked && validForm){
+                    signupButton.setEnabled(true);
+                } else
+                    signupButton.setEnabled(false);
             }
         });
 

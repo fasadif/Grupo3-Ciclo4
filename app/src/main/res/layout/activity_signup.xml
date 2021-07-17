@@ -81,7 +81,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/light_gray"
+                android:background="@drawable/et_rounded"
                 android:fontFamily="@font/philosopher"
                 android:textSize="20sp"
                 android:textColor="@color/dark3_gray"
@@ -101,7 +101,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/light_gray"
+                android:background="@drawable/et_rounded"
                 android:fontFamily="@font/philosopher"
                 android:textSize="20sp"
                 android:textColor="@color/dark3_gray"
@@ -121,7 +121,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/light_gray"
+                android:background="@drawable/et_rounded"
                 android:fontFamily="@font/philosopher"
                 android:textSize="20sp"
                 android:textColor="@color/dark3_gray"
@@ -141,7 +141,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/light_gray"
+                android:background="@drawable/et_rounded"
                 android:fontFamily="@font/philosopher"
                 android:textSize="20sp"
                 android:textColor="@color/dark3_gray"
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/light_gray"
-                    android:checked="true"
+                    android:checked="false"
                     android:defaultFocusHighlightEnabled="true" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                     android:textSize="18sp"
                     android:textColor="@color/white"/>
             </LinearLayout>
-
+<!--        Boton de registro-->
             <Button
                 android:id="@+id/bt_signup"
                 android:layout_width="200dp"
@@ -191,8 +191,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/dark_gray"
-                android:enabled="false"
+                android:stateListAnimator="@color/teal_200"
                 android:fontFamily="@font/philosopher"
                 android:text="@string/tv_signup"
                 android:textColor="@color/white"
@@ -200,8 +199,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_ptc"
-                app:rippleColor="@color/dark3_gray" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_ptc" />
+<!--        Texto de pie de pagina para login-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

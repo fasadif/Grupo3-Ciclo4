@@ -1,15 +1,15 @@
 package com.example.luma.ui.signup;
 
+import android.util.Patterns;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
+import com.example.luma.R;
 import com.example.luma.data.LoginRepository;
 import com.example.luma.data.Result;
 import com.example.luma.data.model.LoggedInUser;
-import com.example.luma.R;
 
 public class LoginViewModel extends ViewModel {
 
@@ -60,12 +60,8 @@ public class LoginViewModel extends ViewModel {
         if (s == null) {
             return false;
         }
-        if (s.matches("[A-Za-z. _-]+")) {
-            return true;
-        } else {
-            return false;
-            //return (!username.trim().isEmpty() || !lastname.trim().isEmpty());
-        }
+        //return (!username.trim().isEmpty() || !lastname.trim().isEmpty());
+        return s.matches("[A-Za-z. _-]+");
     }
 
     // A mail structure validation check
